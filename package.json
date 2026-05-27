@@ -1,0 +1,85 @@
+{
+  "name": "extension-update-delay",
+  "displayName": "Extension Update Delay",
+  "description": "Delays VS Code extension updates until Marketplace releases are at least 24 hours old.",
+  "version": "0.0.1",
+  "publisher": "RenMikkelsen",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Apisathan/vscode-extension-update-delay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Apisathan/vscode-extension-update-delay/issues"
+  },
+  "homepage": "https://github.com/Apisathan/vscode-extension-update-delay#readme",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:extensionUpdateDelay.checkNow"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extensionUpdateDelay.checkNow",
+        "title": "Extension Update Delay: Check Updates Now"
+      }
+    ],
+    "configuration": {
+      "title": "Extension Update Delay",
+      "properties": {
+        "extensionUpdateDelay.delayHours": {
+          "type": "number",
+          "default": 24,
+          "minimum": 1,
+          "description": "Minimum age in hours for a Marketplace release before this extension installs it."
+        },
+        "extensionUpdateDelay.checkIntervalHours": {
+          "type": "number",
+          "default": 24,
+          "minimum": 1,
+          "description": "How often to check for delayed extension updates."
+        },
+        "extensionUpdateDelay.autoCheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically check for eligible extension updates on an interval."
+        },
+        "extensionUpdateDelay.disableBuiltInAutoUpdate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Set extensions.autoUpdate to false so VS Code does not update extensions immediately."
+        },
+        "extensionUpdateDelay.codeExecutable": {
+          "type": "string",
+          "default": "code.cmd",
+          "description": "Path or command name for the VS Code CLI."
+        },
+        "extensionUpdateDelay.excludeExtensions": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "Extension IDs to skip, for example publisher.name."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.5"
+  }
+}
